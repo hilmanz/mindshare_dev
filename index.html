@@ -1,0 +1,509 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="css/mindshare.css" rel="stylesheet" type="text/css"  />
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/themes/redmond/jquery-ui.css" type="text/css" />
+<link rel="stylesheet" href="css/ui.daterangepicker.css" type="text/css" />
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/jquery-ui.min.js"></script>
+<script type="text/javascript" src="js/date.js"></script>
+<script type="text/javascript" src="js/daterangepicker.jQuery.js"></script>
+<script type="text/javascript">	
+    $(function(){
+          $('.date').daterangepicker({arrows: true}); 
+     });
+</script>
+<!-- PNG FIX -->
+<script type="text/javascript" src="js/jquery.pngFix.pack.js"></script> 
+<script type="text/javascript" src="js/jquery.pngFix.js"></script>
+<script type="text/javascript" src="js/jquery.validate.js"></script>
+<script type="text/javascript" src="js/jquery.effects.core.js"></script>
+<script type="text/javascript" src="js/jquery.effects.shake.js"></script>
+<script type="text/javascript" src="js/custom-form-elements.js"></script>
+<script type="text/javascript" src="js/highcharts.js"></script>
+<script type="text/javascript">
+function addCommas(str) {
+    var amount = new String(str);
+    amount = amount.split("").reverse();
+
+    var output = "";
+    for ( var i = 0; i <= amount.length-1; i++ ){
+        output = amount[i] + output;
+        if ((i+1) % 3 == 0 && (amount.length-1) !== i)output = ',' + output;
+    }
+    return output;
+}
+function smac_number(str){
+	var n = parseFloat(str);
+	var s = "";
+	if(n>1000000){
+		s = Math.round(n/1000000)+"M";
+	}else if(n>1000){
+		s = Math.round(n/1000)+"K";
+	}else{
+		s = n;
+	}
+	return s;
+}
+function fan_content(img,name,sentiment){
+	var str='<div class="box-profile">';
+	str+='<img src="'+img+'" />';
+	str+='<div class="box-name">';
+	str+=name+'<br />';
+	str+='+'+sentiment;
+	str+='</div>';
+	str+='</div>';
+	return str;
+}
+function haters_content(img,name,sentiment){
+	var str='<div class="box-profile">';
+	str+='<img src="'+img+'" />';
+	str+='<div class="box-name">';
+	str+=name+'<br />';
+	str+='-'+sentiment;
+	str+='</div>';
+	str+='</div>';
+	return str;
+}
+var chart;
+var chart2;
+//LINE
+$(document).ready(function() {
+	$.ajax({
+	  url: "data/twitter_summary.json",
+	  dataType: 'json',
+	  beforeSend:function(){
+			
+		},
+	  success: function( response ) {
+		if(response){
+			if(response!=""){
+				$("#twmention").html(addCommas(response.mentions));
+				$("#twimp").html(smac_number(response.true_reach));
+				$("#twpeople").html(smac_number(response.people));
+			}else{
+			}
+		}else{
+			
+		}
+	  }
+	});
+	$.ajax({
+		  url: "data/fb_stats.json",
+		  dataType: 'json',
+		  beforeSend:function(){
+				
+			},
+		  success: function( response ) {
+			if(response){
+				if(response!=""){
+					$("#fblikes").html(addCommas(response.likes));
+					$("#fbposts").html(smac_number(response.posts));
+					$("#fbviews").html(smac_number(response.total_reach));
+				}else{
+				}
+			}else{
+				
+			}
+		  }
+		});
+	$.ajax({
+		  url: "data/ambas.json",
+		  dataType: 'json',
+		  beforeSend:function(){
+				
+			},
+		  success: function( response ) {
+			var str="";
+			if(response){
+				if(response!=""){
+					for(var i in response){
+						if(i%3==0&&i>0){
+							str+='<div class="hr"></div>';
+						}
+						str+=fan_content(response[i].author_avatar,response[i].author_id,response[i].sentiment);
+					}
+					$("#twfans").html(str);
+				}else{
+				}
+			}else{
+				
+			}
+		  }
+		});
+	$.ajax({
+		  url: "data/troll.json",
+		  dataType: 'json',
+		  beforeSend:function(){
+				
+			},
+		  success: function( response ) {
+			var str="";
+			if(response){
+				if(response!=""){
+					for(var i in response){
+						if(i%3==0&&i>0){
+							str+='<div class="hr"></div>';
+						}
+						str+=haters_content(response[i].author_avatar,response[i].author_id,response[i].sentiment);
+					}
+					$("#twhaters").html(str);
+				}else{
+				}
+			}else{
+				
+			}
+		  }
+		});
+	$.ajax({
+		  url: "data/30days.json",
+		  dataType: 'json',
+		  beforeSend:function(){
+				
+			},
+		  success: function( response ) {
+			var str="";
+			if(response){
+				if(response!=""){
+					var _categories = [];
+					var _people = [];
+					var _mentions = [];
+					var _impressions = [];
+					for(var i in response){
+						var data = response[i];
+						_categories.push(data.published_date);
+						_people.push(parseFloat(data.people));
+						_impressions.push(parseFloat(data.impressions));
+						_mentions.push(parseFloat(data.mentions));
+						if(i>6){
+							break;
+						}
+					}
+					
+					chart = new Highcharts.Chart({
+						chart: {
+							renderTo: 'linechart',
+							type: 'line',
+							backgroundColor: null,
+							marginRight: 40,
+							marginLeft: 40,
+							marginBottom: 25
+						},
+						 credits: {
+							enabled: false
+						},
+						title: {
+							text: false
+						},
+						xAxis: {
+							categories: _categories
+						},
+						yAxis: {
+							title: false,
+							plotLines: [{
+								value: 0,
+								width: 1,
+								color: '#808080'
+							}]
+						},
+						tooltip: {
+							formatter: function() {
+									return '<b>'+ this.series.name +'</b><br/>'+
+									this.x +': '+ Highcharts.numberFormat(this.y, 0, ',') +'';
+							}
+						},
+						
+						legend: {
+							layout: 'vertical',
+							align: 'right',
+							verticalAlign: 'top',
+							x: -30,
+							y: 65,
+							backgroundColor: '#333333',
+							borderWidth: 1
+						},
+						series: [{
+							name: 'Mentions',
+							data: _mentions
+							}, {
+							name: 'Impressions',
+							data: _impressions
+							}, {
+							name: 'People',
+							data: _people
+							}]
+					});
+				}else{
+				}
+			}else{
+				
+			}
+		  }
+		});
+	
+	
+		
+	});
+	$.ajax({
+	  url: "data/sentiments.json",
+	  dataType: 'json',
+	  beforeSend:function(){
+			
+		},
+	  success: function( response ) {
+		var str="";
+		if(response){
+			if(response!=""){
+				var sentiments = [];
+				
+					sentiments.push(['positive',parseFloat(response.positive)]);
+					sentiments.push(['negative',parseFloat(response.negative)]);
+					sentiments.push(['netral',parseFloat(response.netral)]);
+					
+				chart2 = new Highcharts.Chart({
+					chart: {
+						renderTo: 'pie',
+						plotBackgroundColor: null,
+						backgroundColor: null,
+						plotBorderWidth: null,
+						plotShadow: false
+					},
+					credits: {
+						enabled: false
+					},
+					title: {
+						text: false
+					},
+					tooltip: {
+						formatter: function() {
+							return '<b>'+ this.point.name +'</b>: '+ Highcharts.numberFormat(this.percentage, 1) +' %';
+						}
+					},
+					legend: {
+						layout: 'horizontal'
+					},
+					plotOptions: {
+						pie: {
+							allowPointSelect: true,
+							cursor: 'pointer',
+							dataLabels: {
+								enabled: true,
+								color: '#ffffff',
+								connectorColor: '#ffffff',
+								formatter: function() {
+									return this.point.name +'<br>'+ Highcharts.numberFormat(this.percentage, 1) +' %';
+								}
+							}
+						}
+					},
+					series: [{
+						type: 'pie',
+						name: 'Browser share',
+						data: sentiments
+					}]
+				});
+			}else{
+			}
+		}else{
+			
+		}
+	  }
+	});
+	/*
+	//PIE
+	var chart2;
+	$(document).ready(function() {
+	chart2 = new Highcharts.Chart({
+		chart: {
+			renderTo: 'pie',
+			plotBackgroundColor: null,
+			backgroundColor: 'transparent',
+			plotBorderWidth: null,
+			plotShadow: false
+		},
+		credits: {
+			enabled: false
+		},
+		title: {
+			text: false
+		},
+		tooltip: {
+			formatter: function() {
+				return '<b>'+ this.point.name +'</b>: '+ this.percentage +' %';
+			}
+		},
+		plotOptions: {
+			pie: {
+				allowPointSelect: true,
+				cursor: 'pointer',
+				dataLabels: {
+					enabled: true,
+					color: '#ffffff',
+					connectorColor: '#ffffff',
+					formatter: function() {
+						return this.point.name +'<br>'+ this.percentage +' %';
+					}
+				}
+			}
+		},
+		series: [{
+			type: 'pie',
+			name: 'Browser share',
+			data: [
+				['Firefox',   45.0],
+				['IE',       26.8],
+				{
+					name: 'Chrome',
+					y: 12.8,
+					sliced: true,
+					selected: true
+				},
+				['Safari',    8.5],
+				['Opera',     6.2],
+				['Others',   0.7]
+			]
+		}]
+	});
+	*/
+
+</script>
+<title>MINDSHARE</title>
+</head>
+
+<body>
+<div id="body">
+	<div id="universal">
+    	<div id="header">
+        	<div id="top">
+            	<div id="logo">
+                	<a href="#" class="logo">&nbsp;</a>
+                </div><!-- end #logo -->
+                <div id="brand">
+                	<a href="#" class="brand-name">Soulnation</a>
+                </div><!-- end #brand -->
+            </div><!-- end #top -->
+            <div id="head-icon">
+            	<a href="index.html" class="currentSum">&nbsp;</a>
+            	<a href="facebook.html" class="icon-facebook">&nbsp;</a>
+            	<a href="twitter.html" class="icon-twitter">&nbsp;</a>
+            </div><!-- end #head-icon -->
+        </div><!-- end #header -->
+        <div id="container">
+            <div class="summary-stats">
+            	<div class="twitter-stats embos">
+                	<div class="entry">
+                		<h1>Twitter</h1>
+                        <div class="blackbox">
+                        	<h3 class="blue" id='twmention'>0</h3>
+                            <span class="caption">Mention</span>
+                        </div><!-- end.blackbox -->
+                        <div class="blackbox">
+                        	<h3 class="blue" id='twimp'>0</h3>
+                            <span class="caption">Impression</span>
+                        </div><!-- end.blackbox -->
+                        <div class="blackbox nomargin">
+                        	<h3 class="blue" id='twpeople'>0</h3>
+                            <span class="caption">People</span>
+                        </div><!-- end.blackbox -->
+                    </div><!-- end.entry -->
+                </div><!-- end.twitter-stats -->
+            	<div class="facebook-stats embos">
+                	<div class="entry">
+                		<h1>Facebook</h1>
+                        <div class="blackbox">
+                        	<h3 class="purple" id="fblikes">0</h3>
+                            <span class="caption">Likes</span>
+                        </div><!-- end.blackbox -->
+                        <div class="blackbox">
+                        	<h3 class="purple" id="fbposts">0</h3>
+                            <span class="caption">Stories</span>
+                        </div><!-- end.blackbox -->
+                        <div class="blackbox nomargin">
+                        	<h3 class="purple" id="fbviews">0</h3>
+                            <span class="caption">Views</span>
+                        </div><!-- end.blackbox -->
+                    </div><!-- end.entry -->
+                </div><!-- end.facebook-stats -->
+            </div><!-- end.summary-stats -->
+            <div id="content">
+            	<div class="row">
+                    <div class="selectdate">
+                        <form>
+                            <label>RANGE</label>
+                            <input type="text" value="4/23/99" class="date" />	
+                        </form>
+                    </div><!-- end.selectdate -->
+                    <div class="social-filter">
+                    	<form>
+                        	 <div class="checkboxs">
+                                 <input type="radio" name="social" class="styled" />
+                                 <label>Twitter</label>
+                                 <input type="radio" name="social" class="styled" />
+                                 <label>Facebook</label>
+                             </div><!-- end.checkboxs -->
+                       		 <!--
+                             <div class="blackbox socialfilter">
+                             	<input type="checkbox" name="a" class="styled" />
+                                <label class="yellow">Mentions</label>
+                             	<input type="checkbox" name="a" class="styled" />
+                                <label class="orange">Impressions</label>
+                             	<input type="checkbox" name="a" class="styled" />
+                                <label class="green">People</label>
+                         	 </div><!-- end.socialfilter -->
+                        </form>
+                    </div><!-- end.social-filter -->
+                </div><!-- end.row -->
+            	<div class="row border">
+                	<div class="cart-full embos">
+                    	<div id="linechart" class="chart">
+                        	
+                        </div>
+                    </div><!-- end.cart-full -->
+                </div><!-- end.row -->
+            	<div class="row border">
+                	<div class="title fleft">
+                    	<h3>SENTIMENT</h3>
+                        <div class="box embos">
+                            <div id="pie" class="chartpie">
+                            
+                            </div>
+                        </div><!-- end.cart-half -->
+                    </div>
+                	<div class="title fright">
+                    	<h3>WORDCLOUD</h3>
+                        <div class="wordcloud fright">
+                            <img src="images/wordcloud.png" />
+                        </div><!-- end.cart-half -->
+                    </div>
+                </div><!-- end.row -->
+            	<div class="row border">
+                    	<h3>INFLUENCERS</h3>
+                	<div class="title fleft">
+                        <div class="box embos height233">
+                        	<div class="headergreen">FANS</div>
+                            <div style="padding: 20px 25px 15px;" id="twfans">
+                            	
+                            </div>
+                        </div><!-- end.cart-half -->
+                    </div>
+                	<div class="title fright">
+                        <div class="box embos height233">
+                        	<div class="headerred">HATERS</div>
+                            <div style="padding: 20px 25px 15px;" id="twhaters">
+                            	
+                            </div>
+                            
+                        </div><!-- end.cart-half -->
+                    </div>
+                </div><!-- end.row -->
+                
+            </div><!-- end #content -->
+        </div><!-- end #container -->
+        <div id="footer">
+        </div><!-- end #footer -->
+    </div><!-- end.#universal -->
+</div><!-- end #body -->
+
+</body>
+</html>

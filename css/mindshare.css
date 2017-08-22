@@ -1,0 +1,526 @@
+/*
+Theme Name: MINDSHARE
+Version: 1.0
+Author: ACIT JAZZ - 2012
+Author2: cendekiapp
+*/
+@font-face {
+    font-family: 'FamiliarProBold';
+    src: url('../font/familiarpro/Familiar_Pro-Bold-webfont.eot');
+    src: url('../font/familiarpro/Familiar_Pro-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../font/familiarpro/Familiar_Pro-Bold-webfont.woff') format('woff'),
+         url('../font/familiarpro/Familiar_Pro-Bold-webfont.ttf') format('truetype'),
+         url('../font/familiarpro/Familiar_Pro-Bold-webfont.svg#FamiliarProBold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+body{
+	background:url(../images/bg.jpg) repeat-x #232323;
+	margin:0;
+	padding:0;
+	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+	font-smooth:always;
+	font-size:14px;
+	color:#fff;
+	line-height:1.4;
+}
+h1,h2,h3,h4{
+	font-family:'FamiliarProBold', Arial, sans-serif;
+	font-weight:normal;
+}
+a{
+	text-decoration:none;
+	color:#8eff00;
+	outline:none;
+}
+a:hover{
+	text-decoration:underline;
+}
+.purple{
+	color:#cc66ff;
+}
+.blue{
+	color:#00ccff;
+}
+.yellow{
+	color:#ffff00;
+}
+.blue{
+	color:#06C;
+	}
+.red{
+	color:#933;
+	}
+.orange{
+	color:#f26522;
+}
+.green{
+	color:#8dc73f;
+}
+#body{
+	min-height:800px;
+}
+#universal{
+	margin:0 auto;
+	position:relative;
+	min-height:1000px;
+	width:960px;
+	margin:0 auto;
+}
+#container{
+	min-height:400px;
+}
+.w960{
+	width:960px;
+	margin:0 auto;
+	position:relative;
+}
+#header{
+	padding:20px 0;
+	font-family:'FamiliarProBold', Arial, sans-serif;
+}
+#logo{
+	float:left;
+}
+a.logo{
+	background:url(../images/logo.png) no-repeat;
+	width:143px; height:51px;
+	display:block;
+	text-decoration:none;
+	margin:3px 10px;
+}
+#brand{
+	background:url(../images/bg_brand.png) no-repeat;
+	width:215px; height:120px;
+	position:absolute;
+	right:0;
+	top:-40px;
+}
+a.brand-name{
+	color:#fff;
+	text-decoration:none;
+	display:block;
+	padding:80px 0 0 0;
+	text-transform:uppercase;
+	text-align:center;
+}
+#top{
+	height:60px;
+	background:#2c0c4b;
+	-moz-box-shadow:0 0 5px #000, 0 0 4px #290b47 inset;
+	-webkit-box-shadow:0 0 5px #000, 0 0 4px #290b47 inset;
+	box-shadow:0 0 5px #000, 0 0 4px #290b47 inset;
+}
+#head-icon{
+	clear:both;
+	height:90px;
+	position:relative;
+	margin:0 0 10px 0;
+	background:url(../images/border.gif) bottom repeat-x;
+}
+#head-icon a{
+	display:block;
+	text-decoration:none;
+	position:absolute;
+	
+}
+a.icon-summary{
+	background:url(../images/icon_summary.png) no-repeat;
+	left:100px;
+	width:145px;
+	height:45px;
+	top:25px;
+}
+a:hover.icon-summary , .currentSum{
+	background:url(../images/icon_summary_hov.png) no-repeat;
+	left:95px;
+	width:140px;
+	height:55px;
+	top:19px;
+}
+
+a.icon-twitter{
+	background:url(../images/icon_twitter.png) no-repeat;
+	right:80px;
+	width:145px;
+	height:45px;
+	top:25px;
+}
+a:hover.icon-twitter, .currentTwit{
+	background:url(../images/icon_twitter_hov.png) no-repeat;
+	right:92px;
+	width:140px;
+	height:55px;
+	top:19px;
+}
+a.icon-facebook{
+	background:url(../images/icon_facebook.png) no-repeat;
+	left:400px;
+	width:145px;
+	height:45px;
+	top:25px;
+}
+a:hover.icon-facebook, .currentFB{
+	background:url(../images/icon_facebook_hov.png) no-repeat;
+	left:396px;
+	width:200px;
+	height:55px;
+	top:19px;
+}
+.summary-stats{
+	background:url(../images/border.gif) bottom repeat-x;
+	height:160px;
+}
+.summary-stats h1{
+	font-size:14px;
+	margin:0;
+	line-height:15px;
+	padding:0 0 6px 3px;
+	text-transform:uppercase;
+}
+.facebook-stats,.twitter-stats{
+	margin:0 0 20px 0;
+	background:url(../images/bg_summary_box.jpg) repeat-x;
+	width:460px;
+	float:right;
+	height:125px;
+}
+.twitter-stats{
+	float:left;
+}
+.blackbox{
+	background:url(../images/tr_black.png) repeat;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+	padding:5px;
+}
+.blackboxMini{
+	background: url("../images/tr_black.png") repeat scroll 0 0 transparent;
+    border-radius: 5px 5px 5px 5px;
+    float: left;
+    height: 50px;
+    margin: 0 10px 0 0;
+    padding: 10px;
+    width: 116px;
+	}
+.blackboxMini h3{
+	margin:0;
+	font-size:30px;
+	line-height:30px;
+}
+.blackboxMini .blackbox span{
+	font-size:8pt;
+	display:block;
+	padding:3px 0;
+	text-transform:uppercase;
+}
+.summary-stats .blackbox{
+	background:url(../images/tr_black.png) repeat;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+	width:116px;
+	float:left;
+	height:50px;
+	margin:0 10px 0 0;
+	padding:10px;
+}
+.summary-stats .marginx{
+	margin:0 62px 0 0;
+	}
+.summary-stats .blackbox h3{
+	margin:0;
+	font-size:30px;
+	line-height:30px;
+}
+.summary-stats .blackbox span{
+	font-size:8pt;
+	display:block;
+	padding:3px 0;
+	text-transform:uppercase;
+}
+.checkboxs{
+	width:200px;
+	padding:5px 0 0 0;
+	float:left;
+}
+.socialfilter{
+    float: left;
+    height: 25px;
+    padding: 5px 5px 2px;
+}
+.nomargin,.summary-stats .nomargin{
+	margin:0;
+}
+.entry{
+	padding:15px;
+}
+#content{
+	padding:20px 0;
+	display:table;
+	width:100%;
+}
+.row{
+    clear: both;
+    display: table;
+    padding: 10px 0;
+    width: 100%;
+}
+.embos{
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+	-moz-box-shadow:0 0 5px #000, 0 0 4px #666 inset;
+	-webkit-box-shadow:0 0 5px #000, 0 0 4px #666 inset;
+	box-shadow:0 0 5px #000, 0 0 4px #666 inset;
+}
+.social-filter{
+	float:right;
+	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+	font-size:12px;
+}
+.social-filter label{
+	float:left;
+	margin:0 10px 0 0;
+	line-height:22px;
+	display:block;
+}
+.black-box{
+	border:solid 1px #000000;
+background-image: linear-gradient(bottom, rgb(0,0,0) 9%, rgb(79,79,79) 64%, rgb(117,117,117) 92%);
+background-image: -o-linear-gradient(bottom, rgb(0,0,0) 9%, rgb(79,79,79) 64%, rgb(117,117,117) 92%);
+background-image: -moz-linear-gradient(bottom, rgb(0,0,0) 9%, rgb(79,79,79) 64%, rgb(117,117,117) 92%);
+background-image: -webkit-linear-gradient(bottom, rgb(0,0,0) 9%, rgb(79,79,79) 64%, rgb(117,117,117) 92%);
+background-image: -ms-linear-gradient(bottom, rgb(0,0,0) 9%, rgb(79,79,79) 64%, rgb(117,117,117) 92%);
+
+background-image: -webkit-gradient(
+	linear,
+	left bottom,
+	left top,
+	color-stop(0.09, rgb(0,0,0)),
+	color-stop(0.64, rgb(79,79,79)),
+	color-stop(0.92, rgb(117,117,117))
+);
+	min-height:100px;
+	width: 100%; 
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+	filter: alpha(opacity=50);
+	-moz-opacity:0.5;
+	-khtml-opacity: 0.5;
+	opacity: 0.5;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+	-moz-box-shadow:0 0 5px #000, 0 0 4px #666 inset;
+	-webkit-box-shadow:0 0 5px #000, 0 0 4px #666 inset;
+	box-shadow:0 0 5px #000, 0 0 4px #666 inset;
+}
+form{
+	margin:0;
+	padding:0;
+}
+.checkbox, .radio {
+	width: 19px;
+	height: 25px;
+	padding: 0 5px 0 0;
+	background: url(../images/checkbox.png) no-repeat;
+	display: block;
+	float: left;
+}
+.radio {
+	background: url(../images/radio.png) no-repeat;
+}
+.select {
+	position: absolute;
+	width: 158px; /* With the padding included, the width is 190 pixels: the actual width of the image. */
+	height: 21px;
+	padding: 0 24px 0 8px;
+	color: #fff;
+	font: 12px/21px arial,sans-serif;
+	background: url(../images/select.png) no-repeat;
+	overflow: hidden;
+}
+.selectdate{
+	padding:5px;
+	float:left;
+	font-family:'FamiliarProBold', Arial, sans-serif;
+}
+.selectdate label{
+    display: block;
+    float: left;
+    line-height: 30px;
+    width: 70px;
+	padding:0 0 0 2px;
+}
+.selectdate .ui-daterangepicker-arrows{
+	background:url(../images/tr_black.png) repeat;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+	border:none;
+	float:left;
+	font-size:12px;
+	padding:5px 10px;
+	height:20px;
+}
+.ui-daterangepickercontain .ui-widget{
+	font-size:12px;
+}
+#content .ui-daterangepicker-next{
+	background:url(../images/arrow_right.png) no-repeat;
+	width:19px; height:19px;
+	top:6px; right:5px;
+}
+#content .ui-daterangepicker-prev{
+	background:url(../images/arrow_left.png) no-repeat;
+	width:19px; height:19px;
+	top:6px; left:5px;
+}
+#content .ui-daterangepicker-prev:hover,#content .ui-daterangepicker-next:hover{
+	border:none;
+}
+.selectdate .ui-widget-header .ui-icon{
+	background:none;
+}
+.cart-full{
+	background:url(../images/bg_chart.jpg) repeat-x;
+	width:100%;
+	height:370px;
+}
+.box{
+	background:url(../images/bg_chart2.jpg) repeat-x;
+	width:470px;
+	height:370px;
+	float:left;
+}
+.box2{
+	background:url(../images/bg_chart2.jpg) repeat-x;
+	width:470px;
+	min-height:370px;
+	float:left;
+	padding-bottom: 20px;
+}
+.wordcloud{
+	background:url(../images/tr_black.png) repeat;
+	width:470px;
+	height:370px;
+	text-align:center;
+}
+.wordcloud img{
+	margin:30px 0 0 0;
+}
+.chart{
+	padding:15px 10px;
+	text-align:center;
+	width:940px;
+	height:310px;
+}
+.chartmini{
+	padding:15px 10px;
+	text-align:center;
+	width:450px;
+	height:310px;
+	float:left;
+}
+.chartpie{
+	padding:15px 10px;
+	text-align:center;
+	width:430px;
+	height:310px;
+}
+.fright{
+	float:right;
+}
+.fleft{
+	float:left;
+}
+.border{
+	background:url(../images/border.gif) bottom repeat-x;
+	padding:0 0 30px 0;
+	margin:0 0 30px 0;
+	display:table;
+	width:100%;
+}
+.headergreen{
+	background: none repeat scroll 0 0 #39B54A;
+    padding: 10px 25px;
+	}
+.headerred{
+	background: none repeat scroll 0 0 #ed1c24;
+    padding: 10px 25px;
+	}
+.height233{
+	height: 233px;
+	}
+.height100{
+	height:100px;
+	}
+.height135{
+	height:135px;
+	}
+.width100p{
+	width:100%;
+	}
+.box-profile{
+	display:inline-block;
+	width: 135px;
+	}
+.box-name{
+	display: inline-block;
+    font-size: 11px;
+	margin: 0 0 0 5px;
+	}
+.hr{
+	background: url("../images/border.gif") repeat-x scroll center bottom transparent;
+    height: 5px;
+    margin: 20px auto;
+    width: 425px;
+	}
+.tweethead{
+	padding: 10px 25px;
+	}
+.tweethead h3{
+	margin:0;
+	}
+.tweetfeed{
+	border-top: 1px solid #000;
+	width:100%;
+	min-height:200px;
+	}
+.tweetfeed .light{
+	background:#d7d7d7;height:92px;width:100%;
+	}
+.tweetfeed .dark{
+	background:#c1c1c1;height:92px;width:100%;
+	}
+.tweetfeed .pic{
+	border-right: 1px dotted #000000;
+    display: inline-block;
+    padding: 22px;
+    vertical-align: top;
+    width: 52px;
+	}
+.tweetfeed .feed{
+	display: inline-block;
+    font-size: 11px;
+    padding: 17px 25px;
+    width: 315px;
+	color:#333333;
+	}
+
+.feed a{
+	color:#333333;
+	}
+.borderBot{
+	border-bottom: 1px solid #000000;
+	}
+.margin4{
+	margin-top:4px;
+	}
+.chartLabel{
+	display: block;
+    float: left;
+    line-height: 22px;
+    margin: 0 10px 0 0;
+}
